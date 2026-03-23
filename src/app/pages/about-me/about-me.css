@@ -1,0 +1,213 @@
+h1, p {
+  margin-bottom: 1.75rem;
+}
+
+p {
+  width: 100%;
+  max-width: 650px;
+  line-height: 1.75;
+  font-size: 1.125rem;
+  font-weight: 400;
+}
+
+.about-me-section-paragraph {
+  margin-top: 1.25rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.about-me-section {
+  display: flex;
+  align-items: center;
+  gap: clamp(2rem, 8vw, 4rem);
+  padding: clamp(3rem, 8vh, 6rem) 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.about-me-text {
+  flex: 1;
+  max-width: 600px;
+}
+
+.about-me-photo {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  min-height: clamp(400px, 50vh, 500px);
+  overflow: hidden;
+}
+
+.about-me-photo img {
+  width: clamp(280px, 30vw, 360px);
+  height: clamp(350px, 40vw, 450px);
+  object-fit: cover;
+  border-radius: 28px;
+  display: block;
+  z-index: 2;
+  border: 4px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 35px 70px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(135deg, rgba(59, 130, 246, 0.95), rgba(147, 51, 234, 0.95)),
+    radial-gradient(circle at 30% 30%, rgba(101, 255, 209, 0.4), transparent 50%);
+  border-radius: 28px;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  backdrop-filter: blur(1px);
+}
+
+.about-me-photo:hover .photo-overlay {
+  opacity: 1;
+}
+
+.about-me-photo:hover img {
+  border-color: #3b82f6;
+  box-shadow: 
+    0 50px 100px rgba(59, 130, 246, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(-8px) scale(1.02);
+}
+
+.offset-rectangle {
+  position: absolute;
+  top: clamp(20px, 4vw, 40px);
+  right: clamp(20px, 4vw, 40px);
+  width: clamp(200px, 22vw, 280px);
+  height: clamp(200px, 22vw, 280px);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+  pointer-events: none;
+  z-index: 1;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.rain-effect {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.about-me-photo:hover .rain-effect {
+  opacity: 1;
+}
+
+.rain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.rain.back-row {
+  z-index: 1;
+  opacity: 0.3;
+}
+
+.rain.front-row {
+  z-index: 2;
+  opacity: 0.6;
+}
+
+@keyframes fall {
+  0% { 
+    transform: translateY(0vh) rotate(15deg); 
+    opacity: 1;
+  }
+  75% { 
+    transform: translateY(90vh) rotate(25deg); 
+    opacity: 0.7;
+  }
+  100% { 
+    transform: translateY(100vh) rotate(30deg); 
+    opacity: 0;
+  }
+}
+
+.rain.front-row::before,
+.rain.front-row::after,
+.rain.back-row::before,
+.rain.back-row::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 20px;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.9), rgba(255,255,255,0.3));
+  animation: fall linear infinite;
+  border-radius: 50%;
+}
+
+.rain.front-row::before {
+  left: 15%;
+  animation-duration: 0.6s;
+}
+
+.rain.front-row::after {
+  left: 55%;
+  animation-duration: 0.8s;
+  animation-delay: 0.2s;
+}
+
+.rain.back-row::before {
+  left: 35%;
+  animation-duration: 1s;
+  opacity: 0.4;
+}
+
+.rain.back-row::after {
+  left: 75%;
+  animation-duration: 0.7s;
+  animation-delay: 0.4s;
+  opacity: 0.4;
+}
+
+@keyframes sway {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(3px); }
+}
+
+.about-me-photo:hover .rain {
+  animation: sway 2s ease-in-out infinite;
+}
+
+@media (max-width: 1024px) {
+  .about-me-section {
+    gap: 3rem;
+    padding: 4rem 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-me-section {
+    flex-direction: column;
+    gap: 3rem;
+    text-align: center;
+    padding: 3rem 1rem;
+  }
+  
+  .about-me-photo {
+    order: -1;
+  }
+  
+  .about-me-photo img {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    aspect-ratio: 4/5;
+  }
+}

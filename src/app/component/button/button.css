@@ -1,0 +1,14 @@
+.btn-github {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #24292f, #0969da);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  
+  
+}
+.btn-github:hover {
+  background: linear-gradient(135deg, #0969da, #24292f);
+}
