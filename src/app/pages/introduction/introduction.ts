@@ -11,6 +11,8 @@ export class Introduction {
   roleText: string = 'IT web consultant and developer';
   introduction: string =
     'Here you can find my simply profile focused on my own portfolio and easy to apply ' +
-    'for any contact.';
+    'for any contact. General info plus website built in modern reactive css style with ' + 
+    'angular latest frameworks.'
+    
 
 }
