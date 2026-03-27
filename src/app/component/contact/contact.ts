@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
-
+import { secrets } from '../../../environments/environments.secrets';
 @Component({
   selector: 'app-contact',
   imports: [ReactiveFormsModule, CommonModule],
@@ -15,13 +15,10 @@ export class Contact implements OnInit {
   successMessage = '';
   errorMessage = '';
 
-  phoneNumber = '+39 123 456789';
-  email = 'email@email.com';
+  private readonly config = { ...secrets };
 
-  private SERVICE_ID = 'YOUR_SERVICE_ID';
-  private TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-  private PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
-
+  email = secrets.email;
+  phoneNumber = secrets.phoneNumber;
   constructor(private fb: FormBuilder) {
     this.contactForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
@@ -31,7 +28,7 @@ export class Contact implements OnInit {
   }
 
   ngOnInit() {
-    emailjs.init(this.PUBLIC_KEY);
+    emailjs.init(secrets.PUBLIC_KEY);
   }
 
   onSubmit() {
@@ -40,7 +37,11 @@ export class Contact implements OnInit {
       this.errorMessage = '';
 
       emailjs
-        .sendForm(this.SERVICE_ID, this.TEMPLATE_ID, this.contactForm.value as HTMLFormElement)
+        .sendForm(
+          secrets.SERVICE_ID,
+          secrets.TEMPLATE_ID,
+          this.contactForm.value as HTMLFormElement,
+        )
         .then(
           (response: EmailJSResponseStatus) => {
             this.successMessage = 'Messaggio inviato! Ti rispondo presto. 🎉';
