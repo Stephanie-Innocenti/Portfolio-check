@@ -44,11 +44,11 @@ export class Contact implements OnInit {
         )
         .then(
           (response: EmailJSResponseStatus) => {
-            this.successMessage = 'Messaggio inviato! Ti rispondo presto. 🎉';
+            this.successMessage = 'Message send...we get in touch soon. 🎉';
             this.contactForm.reset();
           },
           (error) => {
-            this.errorMessage = 'Errore invio. Prova email diretta.';
+            this.errorMessage = 'Error sending... prove directly email';
             console.error('EmailJS error:', error);
           },
         )
